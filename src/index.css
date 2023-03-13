@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Alata&family=Josefin+Sans:wght@300;400&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -22,4 +24,97 @@ select {
 
 html {
   font-size: 16px;
+}
+
+body {
+}
+
+/* ==========
+ HOME PAGE
+ ========== */
+
+/* ==========
+ ABOUT SECTION
+ ========== */
+.about-section {
+  width: 87.2%;
+  margin: 0 auto 6rem auto;
+}
+
+.about-section__img {
+  min-height: 14rem;
+  max-height: 31.25rem;
+  object-fit: cover;
+  margin-bottom: 3rem;
+}
+
+.about-section__text {
+  text-align: center;
+  color: #000;
+}
+
+.about-section__heading {
+  font-family: "Josefin Sans";
+  font-weight: 300;
+  font-size: 2rem;
+  line-height: 2rem;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.about-section__description {
+  font-family: "Alata";
+  font-weight: 400;
+  font-size: 0.9375rem;
+  line-height: 1.5625rem;
+  mix-blend-mode: normal;
+  opacity: 0.5;
+}
+
+/* ========================================
+ MEDIA QUERIES - TABLET
+ ======================================== */
+@media (min-width: 48rem) {
+  /* ==========
+  ABOUT SECTION
+  ========== */
+  .about-section {
+    position: relative;
+  }
+
+  .about-section__img {
+    min-height: 31.25rem;
+    width: 65.8558558559%;
+    margin-bottom: 0;
+  }
+
+  .about-section__text {
+    text-align: left;
+    width: 48.7387387387%;
+    background: #fff;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    padding: 1rem 0 0 1rem;
+  }
+
+  .about-section__heading {
+    margin-bottom: 1.5625rem;
+  }
+}
+
+/* ========================================
+ MEDIA QUERIES - DESKTOP
+ ======================================== */
+@media (min-width: 90rem) {
+  /* ==========
+    ABOUT SECTION
+    ========== */
+  .about-section {
+    width: 77.0833333333%;
+  }
+
+  .about-section__text {
+    padding: 3rem 0 0 3rem;
+  }
 }
