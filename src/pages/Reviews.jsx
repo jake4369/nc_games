@@ -1,6 +1,4 @@
 const Reviews = ({ reviews }) => {
-  console.log(reviews);
-
   const reviewCards = reviews.map((review) => {
     return (
       <div className="review-card" key={review.review_id}>
@@ -8,22 +6,23 @@ const Reviews = ({ reviews }) => {
         <div className="review-card__text-content">
           <h2 className="review-card__text-content__heading">{review.title}</h2>
           <span className="review-card__text-content__category">
-            {review.category}
+            {review.category.split("-").join(" ")}
           </span>
-          <span className="review-card__text-content__owner">
-            {review.owner}
-          </span>
+
           <p className="review-card__text-content__review">
-            {review.review_body}
+            {review.review_body}{" "}
+            <span className="review-card__text-content__owner">
+              ~ {review.owner}
+            </span>
           </p>
 
           <div className="review-card__text-content__flex-container">
             <span className="review-card__text-content__date">
-              {review.created_at}
+              {review.created_at.split("T")[0]}
             </span>
 
             <span className="review-card__text-content__votes">
-              {review.votes}
+              Votes: {review.votes}
             </span>
           </div>
         </div>
@@ -31,8 +30,11 @@ const Reviews = ({ reviews }) => {
     );
   });
   return (
-    <div>
-      <div className="review-cards__container">{reviewCards}</div>
+    <div className="review-page">
+      <section className="reviews-section">
+        <h1 className="review-page__heading">Reviews</h1>
+        <div className="review-cards__container">{reviewCards}</div>
+      </section>
     </div>
   );
 };
