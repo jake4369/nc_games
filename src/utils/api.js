@@ -15,3 +15,11 @@ export const getReviews = () => {
     return data.reviews;
   });
 };
+
+export const getLatestReviews = () => {
+  return reviewsApi
+    .get("/reviews?sort_by=created_at&order=desc")
+    .then(({ data }) => {
+      return data.reviews;
+    });
+};
