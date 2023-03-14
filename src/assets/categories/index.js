@@ -1,4 +1,4 @@
-import deckbuilding from "./deck-building.jpeg";
+import deckbuilding from "./deck-building.webp";
 import dexterity from "./dexterity.webp";
 import enginebuilding from "./engine-building.webp";
 import hiddenroles from "./hidden-roles.jpeg";
