@@ -10,10 +10,6 @@ const Reviews = ({ reviews }) => {
     window.scrollTo(0, 0);
   }, []);
 
-  if (!isLoaded) {
-    return <Loader />;
-  }
-
   const reviewCards = reviews.map((review) => {
     return (
       <div className="review-card" key={review.review_id}>
@@ -54,7 +50,11 @@ const Reviews = ({ reviews }) => {
     <div className="review-page">
       <section className="reviews-section">
         <h1 className="review-page__heading">Reviews</h1>
-        <div className="review-cards__container">{reviewCards}</div>
+        {!isLoaded ? (
+          <Loader />
+        ) : (
+          <div className="review-cards__container">{reviewCards}</div>
+        )}
       </section>
     </div>
   );
