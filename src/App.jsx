@@ -5,6 +5,7 @@ import { getCategories } from "./utils/api";
 
 import Header from "./components/shared/Header";
 import Home from "./pages/Home";
+import Reviews from "./pages/Reviews";
 
 const App = () => {
   const [categories, setCategories] = useState([]);
@@ -18,6 +19,7 @@ const App = () => {
       <Header />
       <Routes>
         <Route path="/" element={<Home categories={categories} />} />
+        <Route path="/reviews" elemet={<Reviews />} />
       </Routes>
     </div>
   );
