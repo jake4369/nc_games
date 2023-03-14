@@ -6,6 +6,11 @@ import map from "./../assets/map.jpeg";
 import About from "../components/shared/About";
 import LatestReviews from "../components/LatestReviews";
 
+import { useContext } from "react";
+import { IsLoadedContext } from "./../contexts/IsLoadedContext";
+
+import Loader from "./../components/shared/Loader";
+
 const heading = "Game Review Hub: Strategy and Fun";
 const text = `Welcome to NC Games, 
 your ultimate source for board game reviews! 
@@ -15,6 +20,8 @@ So sit back, relax, and let us guide you through the wonderful
 world of board games!`;
 
 const Home = ({ categories }) => {
+  const { isLoaded } = useContext(IsLoadedContext);
+
   const categoryCards = categories.map((category) => {
     const categoryName = category.slug.split("-").join(" ");
     const categoryImg = category.slug.split("-").join("");
@@ -36,7 +43,11 @@ const Home = ({ categories }) => {
 
       <section className="categories">
         <h2 className="categories__heading">Categories</h2>
-        <div className="category-cards__container">{categoryCards}</div>
+        {!isLoaded ? (
+          <Loader />
+        ) : (
+          <div className="category-cards__container">{categoryCards}</div>
+        )}
       </section>
 
       <img src={map} alt="" className="map-img" />

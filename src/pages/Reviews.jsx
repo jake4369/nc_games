@@ -1,4 +1,19 @@
+import { useEffect, useContext } from "react";
+import { IsLoadedContext } from "../contexts/IsLoadedContext";
+
+import Loader from "../components/shared/Loader";
+
 const Reviews = ({ reviews }) => {
+  const { isLoaded } = useContext(IsLoadedContext);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  if (!isLoaded) {
+    return <Loader />;
+  }
+
   const reviewCards = reviews.map((review) => {
     return (
       <div className="review-card" key={review.review_id}>
