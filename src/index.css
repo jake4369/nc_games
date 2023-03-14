@@ -12,7 +12,6 @@
 
 img {
   display: block;
-  max-width: 100%;
 }
 
 input,
@@ -26,16 +25,19 @@ html {
   font-size: 16px;
 }
 
+h1,
+h2,
+h3 {
+  font-family: "Josefin Sans";
+}
+
 body {
 }
 
-/* ==========
- HOME PAGE
- ========== */
-
-/* ==========
- ABOUT SECTION
- ========== */
+/* ====================
+ SHARED COMPONENTS
+ ==================== */
+/* ABOUT SECTION */
 .about-section {
   width: 87.2%;
   margin: 0 auto 6rem auto;
@@ -54,7 +56,6 @@ body {
 }
 
 .about-section__heading {
-  font-family: "Josefin Sans";
   font-weight: 300;
   font-size: 2rem;
   line-height: 2rem;
@@ -71,13 +72,75 @@ body {
   opacity: 0.5;
 }
 
+/* ====================
+ HOME PAGE
+ ==================== */
+/* CATEGORIES SECTION */
+.categories {
+  width: 87.2%;
+  margin: 0 auto 10.625rem auto;
+}
+
+.categories__heading {
+  font-weight: 300;
+  font-size: 2rem;
+  line-height: 2rem;
+  text-align: center;
+  text-transform: uppercase;
+  color: #000;
+  margin-bottom: 3rem;
+}
+
+.category-cards__container {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.category-card {
+  width: 100%;
+  max-width: 28.125rem;
+  margin: 0 auto;
+}
+
+.category-card__img {
+  width: 100%;
+  height: 9.375rem;
+  object-fit: cover;
+  margin-bottom: 1.5rem;
+}
+
+.category-card__category-name {
+  font-weight: 300;
+  font-size: 1.5rem;
+  line-height: 1.5rem;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+
+.category-card__btn {
+  display: block;
+  font-family: "Alata";
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 0.875rem;
+  letter-spacing: 0.3125rem;
+  text-transform: uppercase;
+  color: #000;
+  background: #fff;
+  border: 0.0625rem solid #000;
+  outline: none;
+  padding: 0.8125rem 2.5rem;
+}
+
 /* ========================================
  MEDIA QUERIES - TABLET
  ======================================== */
 @media (min-width: 48rem) {
-  /* ==========
-  ABOUT SECTION
-  ========== */
+  /* ====================
+  SHARED COMPONENTS
+  ==================== */
+  /* ABOUT SECTION */
   .about-section {
     position: relative;
   }
@@ -101,20 +164,78 @@ body {
   .about-section__heading {
     margin-bottom: 1.5625rem;
   }
+
+  /* ====================
+  HOME PAGE
+  ==================== */
+  /* CATEGORIES SECTION */
+  .categories {
+    margin: 0 auto 10.625rem auto;
+  }
+
+  .categories__heading {
+    font-size: 3rem;
+    line-height: 3rem;
+    text-align: left;
+    margin-bottom: 5rem;
+  }
+
+  .category-cards__container {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .category-card {
+    width: 46%;
+    max-width: unset;
+  }
+
+  .category-card__img {
+    height: 13.75rem;
+    margin-bottom: 2rem;
+  }
+
+  .category-card__category-name {
+    font-size: 2rem;
+    line-height: 2rem;
+    margin-bottom: 2rem;
+  }
 }
 
 /* ========================================
  MEDIA QUERIES - DESKTOP
  ======================================== */
 @media (min-width: 90rem) {
-  /* ==========
-    ABOUT SECTION
-    ========== */
+  /* ====================
+  SHARED COMPONENTS
+  ==================== */
+  /* ABOUT SECTION */
   .about-section {
     width: 77.0833333333%;
   }
 
   .about-section__text {
     padding: 3rem 0 0 3rem;
+  }
+
+  /* ====================
+  HOME PAGE
+  ==================== */
+  /* CATEGORIES SECTION */
+  .categories {
+    width: 77.0833333333%;
+  }
+
+  .category-card {
+    width: 47%;
+  }
+
+  .category-card__btn {
+    transition: all 0.2s ease-in-out;
+  }
+
+  .category-card__btn:hover {
+    color: #fff;
+    background: #000;
   }
 }
