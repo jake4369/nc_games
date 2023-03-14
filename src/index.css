@@ -212,7 +212,6 @@ section.latest-reviews {
  ==================== */
 .reviews-section {
   width: 87.2%;
-  max-width: 41.25rem;
   margin: 0 auto 6rem auto;
 }
 
@@ -228,12 +227,19 @@ section.latest-reviews {
 
 .review-cards__container {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 4rem;
 }
 /* REVIEW CARDS */
+.review-card {
+  max-width: 21.875rem;
+}
+
 .review-card__img {
   width: 100%;
+  height: 14.625rem;
+  object-fit: cover;
   margin-bottom: 2rem;
 }
 
@@ -247,10 +253,6 @@ section.latest-reviews {
   line-height: 1.5rem;
   text-transform: uppercase;
   margin-bottom: 1rem;
-}
-
-.review-card span {
-  display: block;
 }
 
 .review-card__text-content__owner {
@@ -280,6 +282,23 @@ section.latest-reviews {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.view-review-btn {
+  display: block;
+  font-family: "Alata";
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 0.875rem;
+  letter-spacing: 0.3125rem;
+  text-transform: uppercase;
+  color: #000;
+  background: #fff;
+  border: 0.0625rem solid #000;
+  outline: none;
+  padding: 0.8125rem 2.5rem;
+  cursor: pointer;
 }
 
 /* ========================================
@@ -369,8 +388,12 @@ section.latest-reviews {
   .review-page__heading {
     font-size: 3rem;
     line-height: 3rem;
-    text-align: left;
     margin-bottom: 5rem;
+  }
+
+  .review-card {
+    min-width: 21.875rem;
+    max-width: 21.875rem;
   }
 }
 
@@ -442,56 +465,12 @@ section.latest-reviews {
   /* ====================
   REVIEWS PAGE
   ==================== */
-  .reviews-section {
-    width: 77.0833333333%;
-    max-width: unset;
-    margin: 0 auto 10.75rem auto;
+  .view-review-btn {
+    transition: all 0.3s ease-in-out;
   }
 
-  .review-cards__container {
-    gap: 8rem;
-  }
-  /* REVIEW CARDS */
-  .review-card {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .review-card:nth-of-type(even) {
-    flex-direction: row-reverse;
-  }
-
-  .review-card__img {
-    width: 35%;
-    margin-bottom: 0;
-  }
-
-  .review-card__text-content {
-    color: #000;
-    width: 60%;
-  }
-
-  .review-card__text-content__heading {
-    font-size: 2rem;
-    line-height: 2rem;
-  }
-
-  .review-card__text-content__owner {
-    font-size: 1rem;
-  }
-
-  .review-card__text-content__category {
-    font-size: 1.25rem;
-    line-height: 1.5625rem;
-  }
-
-  .review-card__text-content__review {
-    font-size: 1rem;
-    text-align: justify;
-  }
-
-  .review-card__text-content__flex-container {
-    width: 13.75rem;
+  .view-review-btn:hover {
+    color: #fff;
+    background: #000;
   }
 }
