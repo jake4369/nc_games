@@ -52,7 +52,7 @@ const Home = ({ categories }) => {
 
       <img src={map} alt="" className="map-img" />
 
-      <LatestReviews />
+      {!isLoaded ? <Loader /> : <LatestReviews />}
     </div>
   );
 };
