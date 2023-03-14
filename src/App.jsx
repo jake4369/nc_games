@@ -17,7 +17,9 @@ const App = () => {
   }, [categories]);
 
   useEffect(() => {
-    getReviews().then((data) => setReviews(data));
+    getReviews().then((data) => {
+      setReviews(data);
+    });
   }, [reviews]);
 
   return (
