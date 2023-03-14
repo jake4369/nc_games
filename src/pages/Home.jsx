@@ -1,7 +1,10 @@
 import { Link } from "react-router-dom";
-import About from "../components/shared/About";
-import aboutImg from "./../assets/about-img.jpeg";
 import { images } from "./../assets/categories/index";
+import aboutImg from "./../assets/about-img.jpeg";
+import map from "./../assets/map.jpeg";
+
+import About from "../components/shared/About";
+import LatestReviews from "../components/LatestReviews";
 
 const heading = "Game Review Hub: Strategy and Fun";
 const text = `Welcome to NC Games, 
@@ -35,6 +38,10 @@ const Home = ({ categories }) => {
         <h2 className="categories__heading">Categories</h2>
         <div className="category-cards__container">{categoryCards}</div>
       </section>
+
+      <img src={map} alt="" className="map-img" />
+
+      <LatestReviews />
     </div>
   );
 };
