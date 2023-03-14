@@ -14,11 +14,11 @@ const App = () => {
 
   useEffect(() => {
     getCategories().then((data) => setCategories(data));
-  }, []);
+  }, [categories]);
 
   useEffect(() => {
     getReviews().then((data) => setReviews(data));
-  }, []);
+  }, [reviews]);
 
   return (
     <div>
