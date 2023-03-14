@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Alata&family=Josefin+Sans:wght@300;400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Alata&family=Josefin+Sans:wght@300;400;800&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -78,7 +78,7 @@ body {
 /* CATEGORIES SECTION */
 .categories {
   width: 87.2%;
-  margin: 0 auto 10.625rem auto;
+  margin: 0 auto 6rem auto;
 }
 
 .categories__heading {
@@ -133,6 +133,80 @@ body {
   padding: 0.8125rem 2.5rem;
 }
 
+.map-img {
+  width: 87.2%;
+  min-height: 28.125rem;
+  margin: 0 auto 6rem auto;
+  object-fit: cover;
+}
+
+/* LATEST REVIEWS SECTION */
+section.latest-reviews {
+  width: 87.2%;
+  margin: 0 auto 6rem auto;
+}
+
+.latest-reviews__heading {
+  font-weight: 300;
+  font-size: 2rem;
+  line-height: 2rem;
+  text-align: center;
+  text-transform: uppercase;
+  color: #000;
+  margin-bottom: 3rem;
+}
+
+.latest-reviews__container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.latest-review-card {
+  display: flex;
+  align-items: flex-start;
+}
+
+.latest-review-card__img {
+  width: 6.25rem;
+  height: 8.0625rem;
+  object-fit: cover;
+  margin-right: 1.5rem;
+}
+
+.latest-review-card__number {
+  font-weight: 700;
+  font-size: 2rem;
+  line-height: 2rem;
+  color: #c5c6ce;
+  margin-bottom: 0.75rem;
+}
+
+.latest-review-card__heading {
+  font-family: "Josefin Sans";
+  font-weight: 800;
+  font-size: 1.125rem;
+  line-height: 1.5rem;
+  color: #000;
+}
+
+.view-all-reviews-btn {
+  display: block;
+  font-family: "Alata";
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 0.875rem;
+  letter-spacing: 0.3125rem;
+  text-transform: uppercase;
+  color: #000;
+  background: #fff;
+  border: 0.0625rem solid #000;
+  outline: none;
+  padding: 0.8125rem 2.5rem;
+  cursor: pointer;
+}
+
 /* ========================================
  MEDIA QUERIES - TABLET
  ======================================== */
@@ -169,10 +243,6 @@ body {
   HOME PAGE
   ==================== */
   /* CATEGORIES SECTION */
-  .categories {
-    margin: 0 auto 10.625rem auto;
-  }
-
   .categories__heading {
     font-size: 3rem;
     line-height: 3rem;
@@ -199,6 +269,23 @@ body {
     font-size: 2rem;
     line-height: 2rem;
     margin-bottom: 2rem;
+  }
+
+  /* LATEST REVIEWS SECTION */
+  .latest-reviews__heading {
+    font-size: 3rem;
+    line-height: 3rem;
+    text-align: left;
+    margin-bottom: 5rem;
+  }
+
+  .latest-reviews__container {
+    gap: 3rem;
+    margin-bottom: 4rem;
+  }
+
+  .latest-review-card {
+    width: 100%;
   }
 }
 
@@ -235,6 +322,34 @@ body {
   }
 
   .category-card__btn:hover {
+    color: #fff;
+    background: #000;
+  }
+
+  .map-img {
+    width: 77.0833333333%;
+    max-height: 31.25rem;
+  }
+
+  /* LATEST REVIEWS SECTION */
+  section.latest-reviews {
+    width: 77.0833333333%;
+  }
+  .latest-reviews__container {
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+  }
+
+  .latest-review-card {
+    width: 31.5315315315%;
+  }
+
+  .view-all-reviews-btn {
+    transition: all 0.3s ease-in-out;
+  }
+
+  .view-all-reviews-btn:hover {
     color: #fff;
     background: #000;
   }
