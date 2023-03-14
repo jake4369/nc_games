@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { getLatestReviews } from "../utils/api";
 
 const LatestReviews = () => {
@@ -34,7 +35,9 @@ const LatestReviews = () => {
 
       <div className="latest-reviews__container">{latestReviewCards}</div>
 
-      <button className="view-all-reviews-btn">View All</button>
+      <Link to="/reviews">
+        <button className="view-all-reviews-btn">View All</button>
+      </Link>
     </section>
   );
 };
