@@ -4,15 +4,19 @@ const Reviews = ({ reviews }) => {
       <div className="review-card" key={review.review_id}>
         <img src={review.review_img_url} alt="" className="review-card__img" />
         <div className="review-card__text-content">
-          <h2 className="review-card__text-content__heading">{review.title}</h2>
+          <h2 className="review-card__text-content__heading">
+            {review.title.length > 20
+              ? review.title.substring(0, 20) + "..."
+              : review.title}
+          </h2>
           <span className="review-card__text-content__category">
             {review.category.split("-").join(" ")}
           </span>
 
           <p className="review-card__text-content__review">
-            {review.review_body}{" "}
+            Review by{" "}
             <span className="review-card__text-content__owner">
-              ~ {review.owner}
+              {review.owner}
             </span>
           </p>
 
@@ -25,6 +29,8 @@ const Reviews = ({ reviews }) => {
               Votes: {review.votes}
             </span>
           </div>
+
+          <button className="view-review-btn">View</button>
         </div>
       </div>
     );
