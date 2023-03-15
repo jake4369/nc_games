@@ -34,7 +34,7 @@ const Login = () => {
 
   return (
     <div className="login-page">
-      <h1>Login</h1>
+      <h1 className="login-page__heading">Login</h1>
       <form className="login-form" onSubmit={handleSubmit}>
         <input
           type="text"
@@ -46,7 +46,7 @@ const Login = () => {
         />
         {notFound && <label htmlFor="username-input">User not found</label>}
 
-        <button className="login-form-btn">Login In</button>
+        <button className="login-form-btn">Log In</button>
       </form>
     </div>
   );
