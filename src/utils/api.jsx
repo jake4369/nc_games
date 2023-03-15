@@ -35,3 +35,9 @@ export const getUser = (username) => {
     return data.data.user;
   });
 };
+
+export const getReviewComments = (reviewId) => {
+  return reviewsApi.get(`/reviews/${reviewId}/comments"`).then(({ data }) => {
+    return data.comments;
+  });
+};
