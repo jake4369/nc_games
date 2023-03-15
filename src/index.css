@@ -25,13 +25,14 @@ html {
   font-size: 16px;
 }
 
+body {
+  font-family: "Alata";
+}
+
 h1,
 h2,
 h3 {
   font-family: "Josefin Sans";
-}
-
-body {
 }
 
 /* ====================
@@ -331,6 +332,99 @@ section.latest-reviews {
   cursor: pointer;
 }
 
+/* ====================
+ SINGLE REVIEW PAGE
+ ==================== */
+.single-review-card {
+  padding: 1rem;
+  margin: 0 auto 1.25rem auto;
+}
+
+.single-review-card__owner-info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.owner-avatar {
+  width: 2rem;
+  margin-right: 1rem;
+}
+
+.single-review-card__text-content {
+  color: #000;
+  margin-bottom: 1rem;
+}
+
+.single-review-card__owner-name {
+  font-size: 0.9375rem;
+  line-height: 1.5625rem;
+  font-weight: bold;
+  letter-spacing: 0.0625rem;
+  margin-right: auto;
+}
+
+.single-review-card__title {
+  font-family: "Josefin Sans";
+  font-weight: 300;
+  font-size: 1.25rem;
+  line-height: 1.5625rem;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+}
+
+.single-review-card__review-body {
+  font-size: 0.9375rem;
+  line-height: 1.5625rem;
+  opacity: 0.5;
+  margin-bottom: 1rem;
+}
+
+.single-review-card__comments-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.view-comment-btn {
+  color: #5357b6;
+  background: none;
+}
+
+.reply-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 4.125rem;
+  color: #5357b6;
+}
+
+.vote-counter__container {
+  width: 6.25rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  background: #f5f6fa;
+}
+
+.vote-btn,
+.votes {
+  width: 33.3333333%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vote-btn {
+  color: #c5c6ef;
+}
+
+.votes {
+  font-size: 1rem;
+  line-height: 1.1875rem;
+  color: #5357b6;
+}
+
 /* ========================================
  MEDIA QUERIES - TABLET
  ======================================== */
@@ -425,6 +519,57 @@ section.latest-reviews {
     min-width: 21.875rem;
     max-width: 21.875rem;
   }
+
+  /* ====================
+  SINGLE REVIEW PAGE
+  ==================== */
+  .single-review-card {
+    padding: 1.5rem;
+    width: 87.2%;
+    max-width: 45.625rem;
+    display: flex;
+    flex-direction: row-reverse;
+  }
+
+  .owner-avatar {
+    width: 2.5rem;
+  }
+
+  .single-review-card__text-content {
+    margin-bottom: 0;
+  }
+
+  .single-review-card__owner-name {
+    font-size: 1rem;
+  }
+
+  .single-review-card__title {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+
+  .single-review-card__review-body {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+
+  .vote-counter__container {
+    width: 2.5rem;
+    height: 7.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0 1.5rem 0 0;
+  }
+
+  .vote-btn,
+  .votes {
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }
 
 /* ========================================
@@ -502,5 +647,16 @@ section.latest-reviews {
   .view-review-btn:hover {
     color: #fff;
     background: #000;
+  }
+
+  /* ====================
+  SINGLE REVIEW PAGE
+  ==================== */
+  .vote-btn {
+    transition: all 0.3s ease-in-out;
+  }
+
+  .vote-btn:hover {
+    color: #5357b6;
   }
 }
