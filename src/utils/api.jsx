@@ -35,3 +35,11 @@ export const getUser = (username) => {
     return data.data.user;
   });
 };
+
+export const updateVotes = (reviewId, incVotes) => {
+  return reviewsApi
+    .patch(`/reviews/${reviewId}`, { incVotes: incVotes })
+    .then((response) => {
+      return response.data.review;
+    });
+};
