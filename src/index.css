@@ -201,7 +201,7 @@ section.latest-reviews {
 
 .latest-review-card__img {
   width: 6.25rem;
-  height: 8.0625rem;
+  height: 150px;
   object-fit: cover;
   margin-right: 1.5rem;
 }
@@ -220,6 +220,7 @@ section.latest-reviews {
   font-size: 1.125rem;
   line-height: 1.5rem;
   color: #000;
+  margin-bottom: 2rem;
 }
 
 .view-all-reviews-btn {
@@ -621,7 +622,7 @@ section.latest-reviews {
   .latest-reviews__container {
     flex-direction: row;
     justify-content: space-between;
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
   }
 
   .latest-review-card {
