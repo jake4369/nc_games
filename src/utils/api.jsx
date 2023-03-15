@@ -23,3 +23,9 @@ export const getLatestReviews = () => {
       return data.reviews;
     });
 };
+
+export const getUser = (username) => {
+  return reviewsApi.get(`/users/${username}`).then((data) => {
+    return data.data.user;
+  });
+};
