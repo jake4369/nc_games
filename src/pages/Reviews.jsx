@@ -1,4 +1,5 @@
 import { useEffect, useContext } from "react";
+import { Link } from "react-router-dom";
 import { IsLoadedContext } from "../contexts/IsLoadedContext";
 
 import Loader from "../components/shared/Loader";
@@ -41,7 +42,9 @@ const Reviews = ({ reviews }) => {
             </span>
           </div>
 
-          <button className="view-review-btn">View</button>
+          <Link to={`/reviews/${review.review_id}`}>
+            <button className="view-review-btn">View</button>
+          </Link>
         </div>
       </div>
     );
