@@ -16,10 +16,22 @@ export const getReviews = () => {
   });
 };
 
+export const getSingleReview = (reviewId) => {
+  return reviewsApi.get(`/reviews/${reviewId}`).then(({ data }) => {
+    return data.review;
+  });
+};
+
 export const getLatestReviews = () => {
   return reviewsApi
     .get("/reviews?sort_by=created_at&order=desc")
     .then(({ data }) => {
       return data.reviews;
     });
+};
+
+export const getUser = (username) => {
+  return reviewsApi.get(`/users/${username}`).then((data) => {
+    return data.data.user;
+  });
 };
