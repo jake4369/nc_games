@@ -9,7 +9,7 @@ import Header from "./components/shared/Header";
 // Pages
 import Home from "./pages/Home";
 import Reviews from "./pages/Reviews";
-import Review from "./pages/Review";
+import SingleReview from "./pages/SingleReview";
 
 const App = () => {
   const [categories, setCategories] = useState([]);
@@ -38,7 +38,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home categories={categories} />} />
         <Route path="/reviews" element={<Reviews reviews={reviews} />} />
-        <Route path="/reviews/:id" element={<Review />} />
+        <Route path="/reviews/:id" element={<SingleReview />} />
       </Routes>
     </div>
   );
