@@ -1,6 +1,27 @@
+import { useContext, useEffect } from "react";
+import { UserContext } from "../../contexts/UserContext";
 import { Link } from "react-router-dom";
+import defaultProfileImg from "./../../assets/defaultProfilePic.png";
 
 const Header = () => {
+  const { loggedInUser, setLoggedInUser } = useContext(UserContext);
+
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem("loggedInUser"));
+    if (storedUser) {
+      setLoggedInUser(storedUser);
+    }
+  }, []);
+
+  const handleLogOut = () => {
+    localStorage.clear();
+    setLoggedInUser({
+      username: "guest user",
+      name: "guest",
+      avatar_url: defaultImg,
+    });
+  };
+
   return (
     <header>
       <nav className="navbar bg-base-100">
@@ -37,6 +58,32 @@ const Header = () => {
               </ul>
             </li>
           </ul>
+          <div className="dropdown dropdown-end">
+            <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+              <div className="w-10 rounded-full">
+                <img
+                  src={
+                    loggedInUser.username === "guest user"
+                      ? defaultProfileImg
+                      : loggedInUser.avatar_url
+                  }
+                />
+              </div>
+            </label>
+            <ul
+              tabIndex={0}
+              className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52"
+            >
+              <li>
+                <Link
+                  to={loggedInUser.username === "guest user" ? "/login" : "/"}
+                  onClick={handleLogOut}
+                >
+                  {loggedInUser.username === "guest user" ? "Login" : "Logout"}
+                </Link>
+              </li>
+            </ul>
+          </div>
         </div>
       </nav>
     </header>
