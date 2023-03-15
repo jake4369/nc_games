@@ -8,6 +8,7 @@ import { IsLoadedContext } from "./contexts/IsLoadedContext";
 import Header from "./components/shared/Header";
 // Pages
 import Home from "./pages/Home";
+import Login from "./pages/Login";
 import Reviews from "./pages/Reviews";
 import SingleReview from "./pages/SingleReview";
 
@@ -39,6 +40,7 @@ const App = () => {
         <Route path="/" element={<Home categories={categories} />} />
         <Route path="/reviews" element={<Reviews reviews={reviews} />} />
         <Route path="/reviews/:id" element={<SingleReview />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </div>
   );
