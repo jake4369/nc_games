@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { getReviews, getUser } from "../utils/api";
 import { IsLoadedContext } from "../contexts/IsLoadedContext";
+import { FaReply, FaPlus, FaMinus } from "react-icons/fa";
 
 import Loader from "../components/shared/Loader";
 
@@ -13,13 +14,15 @@ const Review = () => {
 
   useEffect(() => {
     getReviews()
-      .then((data) => {
-        const review = data.find((obj) => obj.review_id === params.id * 1);
+      .then((reviewData) => {
+        const review = reviewData.find(
+          (obj) => obj.review_id === params.id * 1
+        );
         setSingleReview(review);
         return getUser(review.owner);
       })
-      .then((data) => {
-        setUser(data);
+      .then((userData) => {
+        setUser(userData);
       });
   }, []);
 
@@ -29,19 +32,35 @@ const Review = () => {
         <Loader />
       ) : (
         <div className="single-review-card">
-          <div className="vote-counter__container"></div>
-
           <div className="single-review-card__text-content">
             <div className="single-review-card__owner-info">
               <img src={user.avatar_url} alt="" className="owner-avatar" />
               <p className="single-review-card__owner-name">
                 {singleReview.owner}
               </p>
+
+              <button className="reply-btn">
+                <FaReply /> Reply
+              </button>
             </div>
             <h2 className="single-review-card__title">{singleReview.title}</h2>
             <p className="single-review-card__review-body">
               {singleReview.review_body}
             </p>
+            <div className="single-review-card__comments-container">
+              <p>Comments: {singleReview.comment_count}</p>
+
+              <button className="view-comment-btn">View Comments</button>
+            </div>
+          </div>
+          <div className="vote-counter__container">
+            <button className="vote-btn">
+              <FaPlus />
+            </button>
+            <span className="votes">{singleReview.votes}</span>
+            <button className="vote-btn">
+              <FaMinus />
+            </button>
           </div>
         </div>
       )}
