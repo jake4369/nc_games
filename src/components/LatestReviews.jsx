@@ -23,7 +23,14 @@ const LatestReviews = () => {
 
         <div className="latest-review-card__text-content">
           <div className="latest-review-card__number">0{index + 1}</div>
-          <h3 className="latest-review-card__heading">{review.title}</h3>
+          <h3 className="latest-review-card__heading">
+            {review.title.length > 20
+              ? review.title.substring(0, 20) + "..."
+              : review.title}
+          </h3>
+          <Link to={`/reviews/${review.review_id}`}>
+            <button>View Review</button>
+          </Link>
         </div>
       </div>
     );
