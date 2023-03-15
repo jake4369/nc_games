@@ -33,7 +33,7 @@ const Header = () => {
         <div className="flex-none">
           <ul className="menu menu-horizontal px-1">
             <li>
-              <a>Item 1</a>
+              <Link to="/reviews">Reviews</Link>
             </li>
             <li tabIndex={0}>
               <a>
