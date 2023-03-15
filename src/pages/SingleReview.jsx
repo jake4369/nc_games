@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
-import { getSingleReview, getUser } from "../utils/api";
+import { getSingleReview, getUser, updateVotes } from "../utils/api";
 import { IsLoadedContext } from "../contexts/IsLoadedContext";
 import { FaReply, FaPlus, FaMinus } from "react-icons/fa";
 
@@ -9,6 +9,7 @@ import Loader from "../components/shared/Loader";
 const SingleReview = () => {
   const [singleReview, setSingleReview] = useState({});
   const [user, setUser] = useState({});
+  const [err, setErr] = useState(null);
   const params = useParams();
   const { isLoaded } = useContext(IsLoadedContext);
 
@@ -23,7 +24,22 @@ const SingleReview = () => {
       .then((userData) => {
         setUser(userData);
       });
-  }, []);
+  }, [singleReview.votes]);
+
+  const handleVote = (incVotes) => {
+    updateVotes(singleReview.review_id, incVotes)
+      .then((updatedReview) => {
+        setSingleReview((prevReview) => {
+          return { ...prevReview, votes: updatedReview.votes };
+        });
+      })
+      .catch((error) => {
+        setSingleReview((prevReview) => {
+          return { ...prevReview, votes: prevReview.votes + incVotes };
+        });
+        setErr("Something went wrong, please try again.");
+      });
+  };
 
   return (
     <div className="review-page">
@@ -53,11 +69,11 @@ const SingleReview = () => {
             </div>
           </div>
           <div className="vote-counter__container">
-            <button className="vote-btn">
+            <button className="vote-btn" onClick={() => handleVote(1)}>
               <FaPlus />
             </button>
             <span className="votes">{singleReview.votes}</span>
-            <button className="vote-btn">
+            <button className="vote-btn" onClick={() => handleVote(-1)}>
               <FaMinus />
             </button>
           </div>
