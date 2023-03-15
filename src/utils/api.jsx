@@ -37,7 +37,7 @@ export const getUser = (username) => {
 };
 
 export const getReviewComments = (reviewId) => {
-  return reviewsApi.get(`/reviews/${reviewId}/comments"`).then(({ data }) => {
+  return reviewsApi.get(`/reviews/${reviewId}/comments`).then(({ data }) => {
     return data.comments;
   });
 };
