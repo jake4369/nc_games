@@ -6,12 +6,11 @@ import { FaReply, FaPlus, FaMinus } from "react-icons/fa";
 
 import Loader from "../components/shared/Loader";
 
-const SingleReview = () => {
-  const [singleReview, setSingleReview] = useState({});
+const SingleReview = ({ singleReview, setSingleReview }) => {
   const [user, setUser] = useState({});
   const [err, setErr] = useState(null);
   const params = useParams();
-  const { isLoaded } = useContext(IsLoadedContext);
+  const { isLoaded, setIsLoaded } = useContext(IsLoadedContext);
 
   useEffect(() => {
     getSingleReview(params.id)
@@ -24,7 +23,7 @@ const SingleReview = () => {
       .then((userData) => {
         setUser(userData);
       });
-  }, [singleReview.votes]);
+  }, []);
 
   const handleVote = (incVotes) => {
     updateVotes(singleReview.review_id, incVotes)
@@ -32,6 +31,7 @@ const SingleReview = () => {
         setSingleReview((prevReview) => {
           return { ...prevReview, votes: updatedReview.votes };
         });
+        setErr(null);
       })
       .catch((error) => {
         setSingleReview((prevReview) => {
@@ -79,6 +79,7 @@ const SingleReview = () => {
           </div>
         </div>
       )}
+      {err ? <p className="voting-error-message">{err}</p> : null}
     </div>
   );
 };
