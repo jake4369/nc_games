@@ -426,6 +426,44 @@ section.latest-reviews {
   color: #5357b6;
 }
 
+/* ====================
+  LOGIN PAGE
+  ==================== */
+.login-page {
+  text-align: center;
+}
+
+.login-page__heading {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.username-input {
+  display: block;
+  margin: 0 auto 1rem auto;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  padding: 0.6875rem 0 0.6875rem 0.6875rem;
+  width: 87.2%;
+  max-width: 21.875rem;
+}
+
+.login-form-btn {
+  display: block;
+  font-family: "Alata";
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 0.875rem;
+  letter-spacing: 0.3125rem;
+  text-transform: uppercase;
+  color: #000;
+  background: #fff;
+  border: 0.0625rem solid #000;
+  outline: none;
+  padding: 0.8125rem 2.5rem;
+  cursor: pointer;
+  margin: 0 auto;
+}
+
 /* ========================================
  MEDIA QUERIES - TABLET
  ======================================== */
