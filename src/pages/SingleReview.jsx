@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { UserContext } from "./../contexts/UserContext";
 import {
   getSingleReview,
@@ -11,10 +11,12 @@ import { IsLoadedContext } from "../contexts/IsLoadedContext";
 import { FaReply, FaPlus, FaMinus } from "react-icons/fa";
 
 import Loader from "../components/shared/Loader";
+import About from "../components/shared/About";
 import Comment from "../components/Comment";
 import AddComment from "./../components/AddComment";
 
 const SingleReview = ({ singleReview, setSingleReview }) => {
+  console.log(singleReview);
   const [user, setUser] = useState({});
   const [hasVoted, setHasVoted] = useState(false);
   const [voteCount, setVoteCount] = useState(0);
@@ -108,6 +110,9 @@ const SingleReview = ({ singleReview, setSingleReview }) => {
 
   return (
     <div className="review-page">
+      {isLoaded && (
+        <About img={singleReview.review_img_url} heading={singleReview.title} />
+      )}
       {!isLoaded ? (
         <Loader />
       ) : (
@@ -124,7 +129,9 @@ const SingleReview = ({ singleReview, setSingleReview }) => {
                   <FaReply /> Reply
                 </button>
               ) : (
-                <p>Log in to reply</p>
+                <Link to="/login">
+                  <p>Log in to reply</p>
+                </Link>
               )}
             </div>
             <h2 className="single-review-card__title">{singleReview.title}</h2>
