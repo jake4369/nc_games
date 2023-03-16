@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
+import { UserContext } from "./../contexts/UserContext";
 import {
   getSingleReview,
   getReviewComments,
@@ -11,6 +12,7 @@ import { FaReply, FaPlus, FaMinus } from "react-icons/fa";
 
 import Loader from "../components/shared/Loader";
 import Comment from "../components/Comment";
+import AddComment from "./../components/AddComment";
 
 const SingleReview = ({ singleReview, setSingleReview }) => {
   const [user, setUser] = useState({});
@@ -19,8 +21,11 @@ const SingleReview = ({ singleReview, setSingleReview }) => {
   const [err, setErr] = useState(null);
   const [comments, setComments] = useState([]);
   const [showComments, setShowComments] = useState(false);
+  const [showAddComment, setShowAddComment] = useState(false);
   const params = useParams();
   const { isLoaded, setIsLoaded } = useContext(IsLoadedContext);
+  const { loggedInUser } = useContext(UserContext);
+  const [newComment, setNewComment] = useState({});
 
   useEffect(() => {
     getSingleReview(params.id)
@@ -50,7 +55,7 @@ const SingleReview = ({ singleReview, setSingleReview }) => {
         });
       });
     });
-  }, []);
+  }, [newComment]);
 
   const handleShowComments = () => {
     setShowComments((prevState) => !prevState);
@@ -93,6 +98,14 @@ const SingleReview = ({ singleReview, setSingleReview }) => {
       });
   };
 
+  const handleReply = () => {
+    setShowAddComment(true);
+  };
+
+  const handleNewComment = (comment) => {
+    setNewComment(comment);
+  };
+
   return (
     <div className="review-page">
       {!isLoaded ? (
@@ -106,16 +119,20 @@ const SingleReview = ({ singleReview, setSingleReview }) => {
                 {singleReview.owner}
               </p>
 
-              <button className="reply-btn">
-                <FaReply /> Reply
-              </button>
+              {loggedInUser.username !== "guest user" ? (
+                <button className="reply-btn" onClick={handleReply}>
+                  <FaReply /> Reply
+                </button>
+              ) : (
+                <p>Log in to reply</p>
+              )}
             </div>
             <h2 className="single-review-card__title">{singleReview.title}</h2>
             <p className="single-review-card__review-body">
               {singleReview.review_body}
             </p>
             <div className="single-review-card__comments-container">
-              <p>Comments: {singleReview.comment_count}</p>
+              <p>Comments: {comments.length}</p>
 
               {singleReview.comment_count > 0 && (
                 <button
@@ -155,6 +172,14 @@ const SingleReview = ({ singleReview, setSingleReview }) => {
           <h2 className="comments-container__heading">Comments</h2>
           {commentCards}
         </div>
+      )}
+
+      {showAddComment && (
+        <AddComment
+          reviewId={params.id}
+          setComments={setComments}
+          handleNewComment={handleNewComment}
+        />
       )}
     </div>
   );
