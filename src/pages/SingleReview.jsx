@@ -8,6 +8,8 @@ import Loader from "../components/shared/Loader";
 
 const SingleReview = ({ singleReview, setSingleReview }) => {
   const [user, setUser] = useState({});
+  const [hasVoted, setHasVoted] = useState(false);
+  const [voteCount, setVoteCount] = useState(0);
   const [err, setErr] = useState(null);
   const params = useParams();
   const { isLoaded, setIsLoaded } = useContext(IsLoadedContext);
@@ -16,6 +18,7 @@ const SingleReview = ({ singleReview, setSingleReview }) => {
     getSingleReview(params.id)
       .then((reviewData) => {
         setSingleReview(reviewData);
+        setVoteCount(reviewData.votes);
         if (reviewData.owner) {
           return getUser(reviewData.owner);
         }
@@ -26,19 +29,24 @@ const SingleReview = ({ singleReview, setSingleReview }) => {
   }, []);
 
   const handleVote = (incVotes) => {
-    updateVotes(singleReview.review_id, incVotes)
-      .then((updatedReview) => {
-        setSingleReview((prevReview) => {
-          return { ...prevReview, votes: updatedReview.votes };
-        });
-        setErr(null);
-      })
-      .catch((error) => {
-        setSingleReview((prevReview) => {
-          return { ...prevReview, votes: prevReview.votes + incVotes };
-        });
-        setErr("Something went wrong, please try again.");
+    const hasVoted = localStorage.getItem(
+      `review_${singleReview.review_id}_voted`
+    );
+    if (hasVoted) {
+      setErr("You have already voted on this review.");
+      return;
+    }
+
+    localStorage.setItem(`review_${singleReview.review_id}_voted`, true);
+    setVoteCount((prevCount) => prevCount + incVotes);
+    setErr(null);
+
+    updateVotes(singleReview.review_id, incVotes).catch((error) => {
+      setSingleReview((prevReview) => {
+        return { ...prevReview, votes: prevReview.votes + incVotes };
       });
+      setErr("Something went wrong, please try again.");
+    });
   };
 
   return (
@@ -69,11 +77,21 @@ const SingleReview = ({ singleReview, setSingleReview }) => {
             </div>
           </div>
           <div className="vote-counter__container">
-            <button className="vote-btn" onClick={() => handleVote(1)}>
+            <button
+              className="vote-btn"
+              onClick={() => handleVote(1)}
+              disabled={hasVoted}
+            >
               <FaPlus />
             </button>
-            <span className="votes">{singleReview.votes}</span>
-            <button className="vote-btn" onClick={() => handleVote(-1)}>
+
+            <span className="votes">{voteCount}</span>
+
+            <button
+              className="vote-btn"
+              onClick={() => handleVote(-1)}
+              disabled={hasVoted}
+            >
               <FaMinus />
             </button>
           </div>
