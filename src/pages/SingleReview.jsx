@@ -1,6 +1,11 @@
 import { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
-import { getSingleReview, getUser, updateVotes } from "../utils/api";
+import {
+  getSingleReview,
+  getReviewComments,
+  getUser,
+  updateVotes,
+} from "../utils/api";
 import { IsLoadedContext } from "../contexts/IsLoadedContext";
 import { FaReply, FaPlus, FaMinus } from "react-icons/fa";
 
@@ -12,6 +17,8 @@ const SingleReview = ({ singleReview, setSingleReview }) => {
   const [hasVoted, setHasVoted] = useState(false);
   const [voteCount, setVoteCount] = useState(0);
   const [err, setErr] = useState(null);
+  const [comments, setComments] = useState([]);
+  const [showComments, setShowComments] = useState(false);
   const params = useParams();
   const { isLoaded, setIsLoaded } = useContext(IsLoadedContext);
 
@@ -28,6 +35,38 @@ const SingleReview = ({ singleReview, setSingleReview }) => {
         setUser(userData);
       });
   }, []);
+
+  useEffect(() => {
+    getReviewComments(params.id).then((commentsData) => {
+      setComments(commentsData);
+      const usersData = commentsData.map((comment) => {
+        return getUser(comment.author);
+      });
+      Promise.all(usersData).then((users) => {
+        setComments((prevComments) => {
+          return prevComments.map((comment, index) => {
+            return { ...comment, avatar_url: users[index].avatar_url };
+          });
+        });
+      });
+    });
+  }, []);
+
+  const handleShowComments = () => {
+    setShowComments((prevState) => !prevState);
+  };
+
+  const commentCards = comments.map((comment) => {
+    return (
+      <Comment
+        key={comment.comment_id}
+        userAvatar={comment.avatar_url}
+        author={comment.author}
+        body={comment.body}
+        createdAt={comment.created_at}
+      />
+    );
+  });
 
   const handleVote = (incVotes) => {
     const hasVoted = localStorage.getItem(
@@ -74,7 +113,7 @@ const SingleReview = ({ singleReview, setSingleReview }) => {
             <div className="single-review-card__comments-container">
               <p>Comments: {singleReview.comment_count}</p>
 
-              {comments.length > 0 && (
+              {singleReview.comment_count > 0 && (
                 <button
                   className="view-comment-btn"
                   onClick={handleShowComments}
@@ -106,6 +145,13 @@ const SingleReview = ({ singleReview, setSingleReview }) => {
         </div>
       )}
       {err ? <p className="voting-error-message">{err}</p> : null}
+
+      {showComments && (
+        <div className="comments-container">
+          <h2 className="comments-container__heading">Comments</h2>
+          {commentCards}
+        </div>
+      )}
     </div>
   );
 };
