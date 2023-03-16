@@ -88,7 +88,6 @@ const SingleReview = ({ singleReview, setSingleReview }) => {
       .catch((error) => {
         setVoteCount((prevCount) => prevCount - incVotes);
         setHasVoted(false);
-        localStorage.setItem(`review_${singleReview.review_id}_voted`, false);
         localStorage.removeItem(`review_${singleReview.review_id}_voted`);
         setErr("Something went wrong, please try again.");
       });
