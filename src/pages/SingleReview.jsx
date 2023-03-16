@@ -1,5 +1,5 @@
-import { useState, useEffect, useContext } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useState, useEffect, useContext, useRef } from "react";
+import { useParams } from "react-router-dom";
 import { UserContext } from "./../contexts/UserContext";
 import {
   getSingleReview,
@@ -8,14 +8,15 @@ import {
   updateVotes,
 } from "../utils/api";
 import { IsLoadedContext } from "../contexts/IsLoadedContext";
-import { FaReply, FaPlus, FaMinus } from "react-icons/fa";
 
 import Loader from "../components/shared/Loader";
 import About from "../components/shared/About";
+import SingleReviewCard from "../components/SingleReviewCard";
 import Comment from "../components/Comment";
 import AddComment from "./../components/AddComment";
 
 const SingleReview = ({ singleReview, setSingleReview }) => {
+  const params = useParams();
   const [user, setUser] = useState({});
   const [hasVoted, setHasVoted] = useState(false);
   const [voteCount, setVoteCount] = useState(0);
@@ -23,10 +24,9 @@ const SingleReview = ({ singleReview, setSingleReview }) => {
   const [comments, setComments] = useState([]);
   const [showComments, setShowComments] = useState(false);
   const [showAddComment, setShowAddComment] = useState(false);
-  const params = useParams();
-  const { isLoaded, setIsLoaded } = useContext(IsLoadedContext);
-  const { loggedInUser } = useContext(UserContext);
   const [newComment, setNewComment] = useState({});
+  const { isLoaded } = useContext(IsLoadedContext);
+  const { loggedInUser } = useContext(UserContext);
 
   useEffect(() => {
     getSingleReview(params.id)
@@ -99,9 +99,18 @@ const SingleReview = ({ singleReview, setSingleReview }) => {
       });
   };
 
+  const addCommentRef = useRef({});
+
   const handleReply = () => {
-    setShowAddComment(true);
+    setShowAddComment(!showAddComment);
+    // addCommentRef?.current?.focus();
   };
+
+  useEffect(() => {
+    if (showAddComment && addCommentRef.current) {
+      addCommentRef?.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [showAddComment]);
 
   const handleNewComment = (comment) => {
     setNewComment(comment);
@@ -109,83 +118,47 @@ const SingleReview = ({ singleReview, setSingleReview }) => {
 
   return (
     <div className="review-page">
-      {isLoaded && (
-        <About img={singleReview.review_img_url} heading={singleReview.title} />
-      )}
-      {!isLoaded ? (
-        <Loader />
+      {isLoaded ? (
+        <>
+          <About
+            img={singleReview.review_img_url}
+            heading={singleReview.title}
+          />
+
+          <SingleReviewCard
+            key={params.id}
+            user={user}
+            singleReview={singleReview}
+            comments={comments}
+            showComments={showComments}
+            loggedInUser={loggedInUser}
+            handleReply={handleReply}
+            handleShowComments={handleShowComments}
+            hasVoted={hasVoted}
+            voteCount={voteCount}
+            handleVote={handleVote}
+          />
+
+          {err ? <p className="voting-error-message">{err}</p> : null}
+
+          {showComments && (
+            <div className="comments-container">
+              <h2 className="comments-container__heading">Comments</h2>
+              {commentCards}
+            </div>
+          )}
+
+          {showAddComment && (
+            <AddComment
+              reviewId={params.id}
+              ref={addCommentRef}
+              setComments={setComments}
+              handleNewComment={handleNewComment}
+            />
+          )}
+        </>
       ) : (
-        <div className="single-review-card">
-          <div className="single-review-card__text-content">
-            <div className="single-review-card__owner-info">
-              <img src={user.avatar_url} alt="" className="owner-avatar" />
-              <p className="single-review-card__owner-name">
-                {singleReview.owner}
-              </p>
-
-              {loggedInUser.username !== "guest user" ? (
-                <button className="reply-btn" onClick={handleReply}>
-                  <FaReply /> Reply
-                </button>
-              ) : (
-                <Link to="/login">
-                  <p>Log in to reply</p>
-                </Link>
-              )}
-            </div>
-            <h2 className="single-review-card__title">{singleReview.title}</h2>
-            <p className="single-review-card__review-body">
-              {singleReview.review_body}
-            </p>
-            <div className="single-review-card__comments-container">
-              <p>Comments: {comments.length}</p>
-
-              {singleReview.comment_count > 0 && (
-                <button
-                  className="view-comment-btn"
-                  onClick={handleShowComments}
-                >
-                  {!showComments ? "View Comments" : "Hide Comments"}
-                </button>
-              )}
-            </div>
-          </div>
-          <div className="vote-counter__container">
-            <button
-              className="vote-btn"
-              onClick={() => handleVote(1)}
-              disabled={hasVoted}
-            >
-              <FaPlus />
-            </button>
-
-            <span className="votes">{voteCount}</span>
-
-            <button
-              className="vote-btn"
-              onClick={() => handleVote(-1)}
-              disabled={hasVoted}
-            >
-              <FaMinus />
-            </button>
-          </div>
-        </div>
-      )}
-      {err ? <p className="voting-error-message">{err}</p> : null}
-
-      {showComments && (
-        <div className="comments-container">
-          <h2 className="comments-container__heading">Comments</h2>
-          {commentCards}
-        </div>
-      )}
-
-      {showAddComment && (
-        <AddComment
-          reviewId={params.id}
-          setComments={setComments}
-          handleNewComment={handleNewComment}
-        />
+        <Loader />
       )}
     </div>
   );
