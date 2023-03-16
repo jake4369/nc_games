@@ -31,11 +31,11 @@ const Comment = ({ reviewId, setComments, handleNewComment }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="add-comment-form">
       <textarea
         name="comment"
         className="comment-textarea"
-        placeholder="Add a comment..."
+        placeholder="Add a comment... Max 255 Characters"
         value={comment.body}
         onChange={handleChange}
       ></textarea>
