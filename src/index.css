@@ -240,6 +240,13 @@ section.latest-reviews {
 }
 
 /* ====================
+  CATEGORY PAGE
+  ==================== */
+.category-page__review-cards__container {
+  margin-bottom: 3rem;
+}
+
+/* ====================
  REVIEWS PAGE
  ==================== */
 .reviews-section {
