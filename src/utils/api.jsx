@@ -42,6 +42,12 @@ export const getUser = (username) => {
   });
 };
 
+export const getReviewComments = (reviewId) => {
+  return reviewsApi.get(`/reviews/${reviewId}/comments`).then(({ data }) => {
+    return data.comments;
+  });
+};
+
 export const updateVotes = (reviewId, incVotes) => {
   return reviewsApi
     .patch(`/reviews/${reviewId}`, { incVotes: incVotes })
