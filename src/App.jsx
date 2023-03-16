@@ -9,6 +9,7 @@ import Header from "./components/shared/Header";
 // Pages
 import Home from "./pages/Home";
 import Login from "./pages/Login";
+import Category from "./pages/Category";
 import Reviews from "./pages/Reviews";
 import SingleReview from "./pages/SingleReview";
 
@@ -39,6 +40,10 @@ const App = () => {
       <Header />
       <Routes>
         <Route path="/" element={<Home categories={categories} />} />
+        <Route
+          path="category/:categoryName"
+          element={<Category reviews={reviews} categories={categories} />}
+        />
         <Route path="/reviews" element={<Reviews reviews={reviews} />} />
         <Route
           path="/reviews/:id"
