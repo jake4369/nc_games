@@ -689,6 +689,7 @@ section.latest-reviews {
   .single-review-card__review-body {
     font-size: 1rem;
     line-height: 1.5rem;
+    min-width: 38.625rem;
   }
 
   .vote-counter__container {
