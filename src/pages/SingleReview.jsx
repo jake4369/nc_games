@@ -77,16 +77,21 @@ const SingleReview = ({ singleReview, setSingleReview }) => {
       return;
     }
 
-    localStorage.setItem(`review_${singleReview.review_id}_voted`, true);
     setVoteCount((prevCount) => prevCount + incVotes);
     setErr(null);
 
-    updateVotes(singleReview.review_id, incVotes).catch((error) => {
-      setSingleReview((prevReview) => {
-        return { ...prevReview, votes: prevReview.votes + incVotes };
+    updateVotes(singleReview.review_id, incVotes)
+      .then(() => {
+        setHasVoted(true);
+        localStorage.setItem(`review_${singleReview.review_id}_voted`, true);
+      })
+      .catch((error) => {
+        setVoteCount((prevCount) => prevCount - incVotes);
+        setHasVoted(false);
+        localStorage.setItem(`review_${singleReview.review_id}_voted`, false);
+        localStorage.removeItem(`review_${singleReview.review_id}_voted`);
+        setErr("Something went wrong, please try again.");
       });
-      setErr("Something went wrong, please try again.");
-    });
   };
 
   return (
