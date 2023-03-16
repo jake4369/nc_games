@@ -16,7 +16,6 @@ import Comment from "../components/Comment";
 import AddComment from "./../components/AddComment";
 
 const SingleReview = ({ singleReview, setSingleReview }) => {
-  console.log(singleReview);
   const [user, setUser] = useState({});
   const [hasVoted, setHasVoted] = useState(false);
   const [voteCount, setVoteCount] = useState(0);

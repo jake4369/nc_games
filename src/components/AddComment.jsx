@@ -23,7 +23,6 @@ const Comment = ({ reviewId, setComments, handleNewComment }) => {
     e.preventDefault();
     addComment(comment.review_id, comment.author, comment.body).then(
       (response) => {
-        console.log(response);
         setComments((prevState) => [...prevState, response]);
         handleNewComment(response);
       }
