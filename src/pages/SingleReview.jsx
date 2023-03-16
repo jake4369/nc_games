@@ -5,6 +5,7 @@ import { IsLoadedContext } from "../contexts/IsLoadedContext";
 import { FaReply, FaPlus, FaMinus } from "react-icons/fa";
 
 import Loader from "../components/shared/Loader";
+import Comment from "../components/Comment";
 
 const SingleReview = ({ singleReview, setSingleReview }) => {
   const [user, setUser] = useState({});
@@ -73,7 +74,14 @@ const SingleReview = ({ singleReview, setSingleReview }) => {
             <div className="single-review-card__comments-container">
               <p>Comments: {singleReview.comment_count}</p>
 
-              <button className="view-comment-btn">View Comments</button>
+              {comments.length > 0 && (
+                <button
+                  className="view-comment-btn"
+                  onClick={handleShowComments}
+                >
+                  {!showComments ? "View Comments" : "Hide Comments"}
+                </button>
+              )}
             </div>
           </div>
           <div className="vote-counter__container">

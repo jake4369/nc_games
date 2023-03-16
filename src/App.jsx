@@ -8,6 +8,7 @@ import { IsLoadedContext } from "./contexts/IsLoadedContext";
 import Header from "./components/shared/Header";
 // Pages
 import Home from "./pages/Home";
+import Login from "./pages/Login";
 import Reviews from "./pages/Reviews";
 import SingleReview from "./pages/SingleReview";
 

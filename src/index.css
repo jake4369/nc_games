@@ -336,6 +336,7 @@ section.latest-reviews {
 /* ====================
  SINGLE REVIEW PAGE
  ==================== */
+/* REVIEW */
 .single-review-card {
   padding: 1rem;
   margin: 0 auto 0.25rem auto;
@@ -665,5 +666,17 @@ section.latest-reviews {
 
   .vote-btn:hover {
     color: #5357b6;
+  }
+
+  /* ====================
+  LOGIN PAGE
+  ==================== */
+  .login-form-btn {
+    transition: all 0.3s ease-in-out;
+  }
+
+  .login-form-btn:hover {
+    color: #fff;
+    background: #000;
   }
 }
