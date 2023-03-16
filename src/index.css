@@ -698,4 +698,16 @@ section.latest-reviews {
   .vote-btn:hover {
     color: #5357b6;
   }
+
+  /* ====================
+  LOGIN PAGE
+  ==================== */
+  .login-form-btn {
+    transition: all 0.3s ease-in-out;
+  }
+
+  .login-form-btn:hover {
+    color: #fff;
+    background: #000;
+  }
 }
