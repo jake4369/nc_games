@@ -3,8 +3,9 @@ import { Link } from "react-router-dom";
 import { IsLoadedContext } from "../contexts/IsLoadedContext";
 
 import Loader from "../components/shared/Loader";
+import Sort from "../components/shared/Sort";
 
-const Reviews = ({ reviews }) => {
+const Reviews = ({ reviews, setReviews }) => {
   const { isLoaded } = useContext(IsLoadedContext);
 
   useEffect(() => {
@@ -53,10 +54,14 @@ const Reviews = ({ reviews }) => {
     <div className="review-page">
       <section className="reviews-section">
         <h1 className="review-page__heading">Reviews</h1>
+
         {!isLoaded ? (
           <Loader />
         ) : (
-          <div className="review-cards__container">{reviewCards}</div>
+          <>
+            <Sort setReviews={setReviews} />
+            <div className="review-cards__container">{reviewCards}</div>
+          </>
         )}
       </section>
     </div>
