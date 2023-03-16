@@ -263,6 +263,28 @@ section.latest-reviews {
   justify-content: center;
   gap: 4rem;
 }
+
+/* REVIEW SORTING */
+.sorting-form {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 21.875rem;
+  margin: 0 auto 2rem auto;
+}
+
+.sorting-form label {
+  font-size: 1.125rem;
+}
+
+.sorting-form select {
+  outline: none;
+  /* background: #000;
+  color: #fff; */
+  cursor: pointer;
+  display: flex;
+}
+
 /* REVIEW CARDS */
 .review-card {
   max-width: 21.875rem;
@@ -617,6 +639,12 @@ section.latest-reviews {
   .review-card {
     min-width: 21.875rem;
     max-width: 21.875rem;
+  }
+
+  /* REVIEW SORTING */
+  .sorting-form {
+    max-width: 25rem;
+    margin: 0 auto 3rem auto;
   }
 
   /* ====================
