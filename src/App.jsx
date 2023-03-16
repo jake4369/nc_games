@@ -16,7 +16,7 @@ const App = () => {
   const [categories, setCategories] = useState([]);
   const [reviews, setReviews] = useState([]);
   const [singleReview, setSingleReview] = useState({});
-  const { isLoaded, setIsLoaded } = useContext(IsLoadedContext);
+  const { setIsLoaded } = useContext(IsLoadedContext);
 
   useEffect(() => {
     setIsLoaded(false);
@@ -39,7 +39,10 @@ const App = () => {
       <Header />
       <Routes>
         <Route path="/" element={<Home categories={categories} />} />
-        <Route path="/reviews" element={<Reviews reviews={reviews} />} />
+        <Route
+          path="/reviews"
+          element={<Reviews reviews={reviews} setReviews={setReviews} />}
+        />
         <Route
           path="/reviews/:id"
           element={
