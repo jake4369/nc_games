@@ -89,7 +89,7 @@ const SingleReview = ({ singleReview, setSingleReview }) => {
         setVoteCount((prevCount) => prevCount - incVotes);
         setHasVoted(false);
         localStorage.removeItem(`review_${singleReview.review_id}_voted`);
-        setErr("Something went wrong, please try again.");
+        setErr("Something went wrong, please refresh the page and try again.");
       });
   };
 
