@@ -47,3 +47,11 @@ export const getReviewComments = (reviewId) => {
     return data.comments;
   });
 };
+
+export const updateVotes = (reviewId, incVotes) => {
+  return reviewsApi
+    .patch(`/reviews/${reviewId}`, { incVotes: incVotes })
+    .then((response) => {
+      return response.data.review;
+    });
+};

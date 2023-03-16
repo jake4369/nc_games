@@ -430,6 +430,11 @@ section.latest-reviews {
   color: #5357b6;
 }
 
+.voting-error-message {
+  text-align: center;
+  color: red;
+}
+
 /* COMMENTS */
 .comment-card {
   color: #000;

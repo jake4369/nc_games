@@ -1,24 +1,32 @@
 import { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
-import { getSingleReview, getUser, getReviewComments } from "../utils/api";
+import {
+  getSingleReview,
+  getReviewComments,
+  getUser,
+  updateVotes,
+} from "../utils/api";
 import { IsLoadedContext } from "../contexts/IsLoadedContext";
 import { FaReply, FaPlus, FaMinus } from "react-icons/fa";
 
 import Loader from "../components/shared/Loader";
 import Comment from "../components/Comment";
 
-const SingleReview = () => {
-  const params = useParams();
-  const { isLoaded } = useContext(IsLoadedContext);
-  const [singleReview, setSingleReview] = useState({});
+const SingleReview = ({ singleReview, setSingleReview }) => {
   const [user, setUser] = useState({});
+  const [hasVoted, setHasVoted] = useState(false);
+  const [voteCount, setVoteCount] = useState(0);
+  const [err, setErr] = useState(null);
   const [comments, setComments] = useState([]);
   const [showComments, setShowComments] = useState(false);
+  const params = useParams();
+  const { isLoaded, setIsLoaded } = useContext(IsLoadedContext);
 
   useEffect(() => {
     getSingleReview(params.id)
       .then((reviewData) => {
         setSingleReview(reviewData);
+        setVoteCount(reviewData.votes);
         if (reviewData.owner) {
           return getUser(reviewData.owner);
         }
@@ -60,6 +68,31 @@ const SingleReview = () => {
     );
   });
 
+  const handleVote = (incVotes) => {
+    const hasVoted = localStorage.getItem(
+      `review_${singleReview.review_id}_voted`
+    );
+    if (hasVoted) {
+      setErr("You have already voted on this review.");
+      return;
+    }
+
+    setVoteCount((prevCount) => prevCount + incVotes);
+    setErr(null);
+
+    updateVotes(singleReview.review_id, incVotes)
+      .then(() => {
+        setHasVoted(true);
+        localStorage.setItem(`review_${singleReview.review_id}_voted`, true);
+      })
+      .catch((error) => {
+        setVoteCount((prevCount) => prevCount - incVotes);
+        setHasVoted(false);
+        localStorage.removeItem(`review_${singleReview.review_id}_voted`);
+        setErr("Something went wrong, please refresh the page and try again.");
+      });
+  };
+
   return (
     <div className="review-page">
       {!isLoaded ? (
@@ -84,7 +117,7 @@ const SingleReview = () => {
             <div className="single-review-card__comments-container">
               <p>Comments: {singleReview.comment_count}</p>
 
-              {comments.length > 0 && (
+              {singleReview.comment_count > 0 && (
                 <button
                   className="view-comment-btn"
                   onClick={handleShowComments}
@@ -95,16 +128,27 @@ const SingleReview = () => {
             </div>
           </div>
           <div className="vote-counter__container">
-            <button className="vote-btn">
+            <button
+              className="vote-btn"
+              onClick={() => handleVote(1)}
+              disabled={hasVoted}
+            >
               <FaPlus />
             </button>
-            <span className="votes">{singleReview.votes}</span>
-            <button className="vote-btn">
+
+            <span className="votes">{voteCount}</span>
+
+            <button
+              className="vote-btn"
+              onClick={() => handleVote(-1)}
+              disabled={hasVoted}
+            >
               <FaMinus />
             </button>
           </div>
         </div>
       )}
+      {err ? <p className="voting-error-message">{err}</p> : null}
 
       {showComments && (
         <div className="comments-container">

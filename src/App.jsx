@@ -15,6 +15,7 @@ import SingleReview from "./pages/SingleReview";
 const App = () => {
   const [categories, setCategories] = useState([]);
   const [reviews, setReviews] = useState([]);
+  const [singleReview, setSingleReview] = useState({});
   const { isLoaded, setIsLoaded } = useContext(IsLoadedContext);
 
   useEffect(() => {
@@ -31,7 +32,7 @@ const App = () => {
       setReviews(data);
       setIsLoaded(true);
     });
-  }, []);
+  }, [singleReview]);
 
   return (
     <div>
@@ -39,7 +40,15 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home categories={categories} />} />
         <Route path="/reviews" element={<Reviews reviews={reviews} />} />
-        <Route path="/reviews/:id" element={<SingleReview />} />
+        <Route
+          path="/reviews/:id"
+          element={
+            <SingleReview
+              singleReview={singleReview}
+              setSingleReview={setSingleReview}
+            />
+          }
+        />
         <Route path="/login" element={<Login />} />
       </Routes>
     </div>
