@@ -507,6 +507,10 @@ section.latest-reviews {
   max-width: 21.875rem;
 }
 
+.login-form label {
+  margin-bottom: 0.5rem;
+}
+
 .login-form-btn {
   display: block;
   font-family: "Alata";
