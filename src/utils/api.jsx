@@ -30,6 +30,12 @@ export const getLatestReviews = () => {
     });
 };
 
+export const getUsers = () => {
+  return reviewsApi.get("/users").then((data) => {
+    return data.data.users;
+  });
+};
+
 export const getUser = (username) => {
   return reviewsApi.get(`/users/${username}`).then((data) => {
     return data.data.user;
