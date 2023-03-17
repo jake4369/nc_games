@@ -24,7 +24,6 @@ const Comment = ({
 
     deleteComment(commentId)
       .then((response) => {
-        console.log(response);
         setIsDeleted(true);
         setViewTrashIcon(true);
         onDelete(commentId);
