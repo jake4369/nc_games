@@ -16,6 +16,7 @@ import PathNotFound from "./pages/PathNotFound";
 import CategoryNotFound from "./pages/CategoryNotFound";
 import ReviewNotFound from "./pages/ReviewNotFound";
 import ServerError from "./pages/ServerError";
+import Footer from "./components/shared/Footer";
 
 const App = () => {
   const [categories, setCategories] = useState([]);
@@ -76,6 +77,7 @@ const App = () => {
         <Route path="*" element={<PathNotFound />} />
         <Route path="/server-error" element={<ServerError />} />
       </Routes>
+      <Footer />
     </div>
   );
 };
