@@ -26,6 +26,10 @@ const ReviewCard = ({ review }) => {
             {review.created_at.split("T")[0]}
           </span>
 
+          <span className="review-card__text-comment_count">
+            Comments: {review.comment_count}
+          </span>
+
           <span className="review-card__text-content__votes">
             Votes: {review.votes}
           </span>
