@@ -10,10 +10,12 @@ export const getCategories = () => {
   });
 };
 
-export const getReviews = () => {
-  return reviewsApi.get("/reviews").then(({ data }) => {
-    return data.reviews;
-  });
+export const getReviews = (sortOption = "created_at", sortOrder = "desc") => {
+  return reviewsApi
+    .get(`/reviews?sort_by=${sortOption}&order=${sortOrder}`)
+    .then(({ data }) => {
+      return data.reviews;
+    });
 };
 
 export const getSingleReview = (reviewId) => {
@@ -56,8 +58,20 @@ export const updateVotes = (reviewId, incVotes) => {
     });
 };
 
+
 export const deleteComment = (commentId) => {
   return reviewsApi.delete(`/comments/${commentId}`).then((response) => {
     return response;
   });
+
+export const addComment = (reviewId, username, body) => {
+  return reviewsApi
+    .post(`/reviews/${reviewId}/comments`, {
+      review_id: reviewId,
+      username: username,
+      body: body,
+    })
+    .then(({ data }) => {
+      return data.comment;
+    });
 };

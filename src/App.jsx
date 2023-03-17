@@ -9,6 +9,7 @@ import Header from "./components/shared/Header";
 // Pages
 import Home from "./pages/Home";
 import Login from "./pages/Login";
+import Category from "./pages/Category";
 import Reviews from "./pages/Reviews";
 import SingleReview from "./pages/SingleReview";
 
@@ -16,7 +17,7 @@ const App = () => {
   const [categories, setCategories] = useState([]);
   const [reviews, setReviews] = useState([]);
   const [singleReview, setSingleReview] = useState({});
-  const { isLoaded, setIsLoaded } = useContext(IsLoadedContext);
+  const { setIsLoaded } = useContext(IsLoadedContext);
 
   useEffect(() => {
     setIsLoaded(false);
@@ -39,7 +40,14 @@ const App = () => {
       <Header />
       <Routes>
         <Route path="/" element={<Home categories={categories} />} />
-        <Route path="/reviews" element={<Reviews reviews={reviews} />} />
+        <Route
+          path="category/:categoryName"
+          element={<Category reviews={reviews} categories={categories} />}
+        />
+        <Route
+          path="/reviews"
+          element={<Reviews reviews={reviews} setReviews={setReviews} />}
+        />
         <Route
           path="/reviews/:id"
           element={
