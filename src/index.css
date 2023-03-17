@@ -312,13 +312,11 @@ section.latest-reviews {
 }
 
 .sorting-form label {
-  font-size: 1.125rem;
+  font-size: 0.75rem;
 }
 
 .sorting-form select {
   outline: none;
-  /* background: #000;
-  color: #fff; */
   cursor: pointer;
   display: flex;
 }
@@ -740,6 +738,10 @@ section.latest-reviews {
   .sorting-form {
     max-width: 25rem;
     margin: 0 auto 3rem auto;
+  }
+
+  .sorting-form label {
+    font-size: 1rem;
   }
 
   /* ====================
