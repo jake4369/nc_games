@@ -10,10 +10,12 @@ export const getCategories = () => {
   });
 };
 
-export const getReviews = () => {
-  return reviewsApi.get("/reviews").then(({ data }) => {
-    return data.reviews;
-  });
+export const getReviews = (sortOption = "created_at", sortOrder = "desc") => {
+  return reviewsApi
+    .get(`/reviews?sort_by=${sortOption}&order=${sortOrder}`)
+    .then(({ data }) => {
+      return data.reviews;
+    });
 };
 
 export const getSingleReview = (reviewId) => {

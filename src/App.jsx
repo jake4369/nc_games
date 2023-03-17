@@ -17,7 +17,7 @@ const App = () => {
   const [categories, setCategories] = useState([]);
   const [reviews, setReviews] = useState([]);
   const [singleReview, setSingleReview] = useState({});
-  const { isLoaded, setIsLoaded } = useContext(IsLoadedContext);
+  const { setIsLoaded } = useContext(IsLoadedContext);
 
   useEffect(() => {
     setIsLoaded(false);
