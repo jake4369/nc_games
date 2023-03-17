@@ -33,18 +33,19 @@ const SingleReview = ({ singleReview, setSingleReview }) => {
   useEffect(() => {
     getSingleReview(params.id)
       .then((reviewData) => {
-        if (Object.keys(reviewData).length === 0) {
-          navigate("/review-not-found");
-        } else {
-          setSingleReview(reviewData);
-          setVoteCount(reviewData.votes);
-          if (reviewData.owner) {
-            return getUser(reviewData.owner);
-          }
+        setSingleReview(reviewData);
+        setVoteCount(reviewData.votes);
+        if (reviewData.owner) {
+          return getUser(reviewData.owner);
         }
       })
       .then((userData) => {
         setUser(userData);
+      })
+      .catch((error) => {
+        if (error) {
+          navigate("/review-not-found");
+        }
       });
   }, []);
 
