@@ -55,3 +55,9 @@ export const updateVotes = (reviewId, incVotes) => {
       return response.data.review;
     });
 };
+
+export const deleteComment = (commentId) => {
+  return reviewsApi.delete(`/comments/${commentId}`).then((response) => {
+    return response;
+  });
+};
