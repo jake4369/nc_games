@@ -46,24 +46,31 @@ const SingleReview = ({ singleReview, setSingleReview }) => {
       })
       .then((userData) => {
         setUser(userData);
+      })
+      .catch((error) => {
+        navigate("/server-error");
       });
   }, []);
 
   useEffect(() => {
-    getReviewComments(params.id).then((commentsData) => {
-      setComments(commentsData);
-      setCommentCount(commentsData.length);
-      const usersData = commentsData.map((comment) => {
-        return getUser(comment.author);
-      });
-      Promise.all(usersData).then((users) => {
-        setComments((prevComments) => {
-          return prevComments.map((comment, index) => {
-            return { ...comment, avatar_url: users[index].avatar_url };
+    getReviewComments(params.id)
+      .then((commentsData) => {
+        setComments(commentsData);
+        setCommentCount(commentsData.length);
+        const usersData = commentsData.map((comment) => {
+          return getUser(comment.author);
+        });
+        Promise.all(usersData).then((users) => {
+          setComments((prevComments) => {
+            return prevComments.map((comment, index) => {
+              return { ...comment, avatar_url: users[index].avatar_url };
+            });
           });
         });
+      })
+      .catch((error) => {
+        navigate("/server-error");
       });
-    });
   }, [newComment]);
 
   const handleShowComments = () => {
