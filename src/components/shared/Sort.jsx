@@ -27,7 +27,6 @@ const Sort = ({ setReviews }) => {
         onChange={handleSortOptionChange}
       >
         <option value="created_at">Date</option>
-        <option value="category">Category</option>
         <option value="comment_count">Comments</option>
         <option value="votes">Votes</option>
       </select>
