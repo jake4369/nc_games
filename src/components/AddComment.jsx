@@ -12,6 +12,7 @@ const Comment = forwardRef(
       body: "",
     });
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [errorMessage, setErrorMessage] = useState(null);
 
     const handleChange = (e) => {
       setComment((prevState) => {
@@ -26,8 +27,8 @@ const Comment = forwardRef(
       e.preventDefault();
       if (comment.body !== "") {
         setIsSubmitting(true);
-        addComment(comment.review_id, comment.author, comment.body).then(
-          (response) => {
+        addComment(comment.review_id, comment.author, comment.body)
+          .then((response) => {
             setComments((prevState) => [...prevState, response]);
             handleNewComment(response);
             setIsSubmitting(false);
@@ -37,8 +38,12 @@ const Comment = forwardRef(
                 body: "",
               };
             });
-          }
-        );
+            setErrorMessage(null);
+          })
+          .catch((error) => {
+            setIsSubmitting(false);
+            setErrorMessage("Message failed to send!");
+          });
       }
     };
 
@@ -55,6 +60,7 @@ const Comment = forwardRef(
         <button className="send-comment-btn" disabled={isSubmitting}>
           {isSubmitting ? "..." : "SEND"}
         </button>
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
       </form>
     );
   }
