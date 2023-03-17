@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext, useRef } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { UserContext } from "./../contexts/UserContext";
 import {
   getSingleReview,
@@ -29,7 +29,6 @@ const SingleReview = ({ singleReview, setSingleReview }) => {
   const [newComment, setNewComment] = useState({});
   const { isLoaded } = useContext(IsLoadedContext);
   const { loggedInUser } = useContext(UserContext);
-  const navigate = useNavigate();
 
   useEffect(() => {
     getSingleReview(params.id)
@@ -46,9 +45,6 @@ const SingleReview = ({ singleReview, setSingleReview }) => {
       })
       .then((userData) => {
         setUser(userData);
-      })
-      .catch((error) => {
-        navigate("/server-error");
       });
   }, []);
 

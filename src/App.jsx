@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { getCategories } from "./utils/api";
 import { getReviews } from "./utils/api";
 import { IsLoadedContext } from "./contexts/IsLoadedContext";
@@ -23,30 +23,21 @@ const App = () => {
   const [reviews, setReviews] = useState([]);
   const [singleReview, setSingleReview] = useState({});
   const { setIsLoaded } = useContext(IsLoadedContext);
-  const navigate = useNavigate();
 
   useEffect(() => {
     setIsLoaded(false);
-    getCategories()
-      .then((data) => {
-        setCategories(data);
-        setIsLoaded(true);
-      })
-      .catch((error) => {
-        navigate("/server-error");
-      });
+    getCategories().then((data) => {
+      setCategories(data);
+      setIsLoaded(true);
+    });
   }, []);
 
   useEffect(() => {
     setIsLoaded(false);
-    getReviews()
-      .then((data) => {
-        setReviews(data);
-        setIsLoaded(true);
-      })
-      .catch((error) => {
-        navigate("/server-error");
-      });
+    getReviews().then((data) => {
+      setReviews(data);
+      setIsLoaded(true);
+    });
   }, [singleReview]);
 
   return (
