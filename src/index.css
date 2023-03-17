@@ -486,6 +486,47 @@ section.latest-reviews {
   letter-spacing: 0.0625rem;
 }
 
+/* ADD COMMENT FORM */
+.add-comment-form {
+  width: 87.2%;
+  max-width: 45.625rem;
+  margin: 0 auto 4rem auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.comment-textarea {
+  background: #fff;
+  border: 1px solid #e9ebf0;
+  border-radius: 0.5rem;
+  width: 100%;
+  min-height: 6rem;
+  padding: 0.75rem 0 0 1.5rem;
+  resize: none;
+  margin-bottom: 1rem;
+}
+
+.send-comment-btn {
+  display: block;
+  font-weight: bold;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  text-transform: uppercase;
+  color: #fff;
+  background: #5357b6;
+  border-radius: 0.5rem;
+  outline: none;
+  padding: 0.75rem 1.875rem;
+  max-width: 6.5rem;
+  align-self: flex-end;
+}
+
+.add-comment-form .error-message {
+  font-weight: bold;
+  text-align: center;
+  color: #ff0000;
+}
+
 /* ====================
   LOGIN PAGE
   ==================== */
@@ -505,6 +546,10 @@ section.latest-reviews {
   padding: 0.6875rem 0 0.6875rem 0.6875rem;
   width: 87.2%;
   max-width: 21.875rem;
+}
+
+.login-form label {
+  margin-bottom: 0.5rem;
 }
 
 .login-form-btn {
@@ -650,6 +695,7 @@ section.latest-reviews {
   .single-review-card__review-body {
     font-size: 1rem;
     line-height: 1.5rem;
+    min-width: 38.625rem;
   }
 
   .vote-counter__container {
@@ -757,6 +803,24 @@ section.latest-reviews {
 
   .vote-btn:hover {
     color: #5357b6;
+  }
+
+  /* ADD COMMENT FORM */
+  .add-comment-form {
+    flex-direction: row;
+  }
+
+  .comment-textarea {
+    margin: 0 1rem 0 0;
+  }
+
+  .send-comment-btn {
+    align-self: flex-start;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .send-comment-btn:hover {
+    background: #c5c6ef;
   }
 
   /* ====================

@@ -55,3 +55,15 @@ export const updateVotes = (reviewId, incVotes) => {
       return response.data.review;
     });
 };
+
+export const addComment = (reviewId, username, body) => {
+  return reviewsApi
+    .post(`/reviews/${reviewId}/comments`, {
+      review_id: reviewId,
+      username: username,
+      body: body,
+    })
+    .then(({ data }) => {
+      return data.comment;
+    });
+};
