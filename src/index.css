@@ -511,6 +511,11 @@ section.latest-reviews {
   cursor: pointer;
 }
 
+.delete-error-message {
+  font-weight: bold;
+  color: #ff0000;
+}
+
 .comment-card__body {
   font-size: 0.9375rem;
   line-height: 1.5625rem;
