@@ -521,6 +521,12 @@ section.latest-reviews {
   align-self: flex-end;
 }
 
+.add-comment-form .error-message {
+  font-weight: bold;
+  text-align: center;
+  color: #ff0000;
+}
+
 /* ====================
   LOGIN PAGE
   ==================== */
