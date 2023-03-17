@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext, useRef } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { UserContext } from "./../contexts/UserContext";
 import {
   getSingleReview,
@@ -14,6 +14,7 @@ import About from "../components/shared/About";
 import SingleReviewCard from "../components/SingleReviewCard";
 import Comment from "../components/Comment";
 import AddComment from "./../components/AddComment";
+import ReviewNotFound from "./ReviewNotFound";
 
 const SingleReview = ({ singleReview, setSingleReview }) => {
   const params = useParams();
@@ -28,36 +29,48 @@ const SingleReview = ({ singleReview, setSingleReview }) => {
   const [newComment, setNewComment] = useState({});
   const { isLoaded } = useContext(IsLoadedContext);
   const { loggedInUser } = useContext(UserContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     getSingleReview(params.id)
       .then((reviewData) => {
-        setSingleReview(reviewData);
-        setVoteCount(reviewData.votes);
-        if (reviewData.owner) {
-          return getUser(reviewData.owner);
+        if (Object.keys(reviewData).length === 0) {
+          navigate("/review-not-found");
+        } else {
+          setSingleReview(reviewData);
+          setVoteCount(reviewData.votes);
+          if (reviewData.owner) {
+            return getUser(reviewData.owner);
+          }
         }
       })
       .then((userData) => {
         setUser(userData);
+      })
+      .catch((error) => {
+        navigate("/server-error");
       });
   }, []);
 
   useEffect(() => {
-    getReviewComments(params.id).then((commentsData) => {
-      setComments(commentsData);
-      setCommentCount(commentsData.length);
-      const usersData = commentsData.map((comment) => {
-        return getUser(comment.author);
-      });
-      Promise.all(usersData).then((users) => {
-        setComments((prevComments) => {
-          return prevComments.map((comment, index) => {
-            return { ...comment, avatar_url: users[index].avatar_url };
+    getReviewComments(params.id)
+      .then((commentsData) => {
+        setComments(commentsData);
+        setCommentCount(commentsData.length);
+        const usersData = commentsData.map((comment) => {
+          return getUser(comment.author);
+        });
+        Promise.all(usersData).then((users) => {
+          setComments((prevComments) => {
+            return prevComments.map((comment, index) => {
+              return { ...comment, avatar_url: users[index].avatar_url };
+            });
           });
         });
+      })
+      .catch((error) => {
+        navigate("/server-error");
       });
-    });
   }, [newComment]);
 
   const handleShowComments = () => {
@@ -114,7 +127,6 @@ const SingleReview = ({ singleReview, setSingleReview }) => {
 
   const handleReply = () => {
     setShowAddComment(!showAddComment);
-    // addCommentRef?.current?.focus();
   };
 
   useEffect(() => {
@@ -127,9 +139,13 @@ const SingleReview = ({ singleReview, setSingleReview }) => {
     setNewComment(comment);
   };
 
+  if (Object.keys(singleReview).length === 0) {
+    return <ReviewNotFound />;
+  }
+
   return (
     <div className="review-page">
-    {isLoaded ? (
+      {isLoaded ? (
         <>
           <About
             img={singleReview.review_img_url}

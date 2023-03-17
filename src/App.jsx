@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import { getCategories } from "./utils/api";
 import { getReviews } from "./utils/api";
 import { IsLoadedContext } from "./contexts/IsLoadedContext";
@@ -12,27 +12,40 @@ import Login from "./pages/Login";
 import Category from "./pages/Category";
 import Reviews from "./pages/Reviews";
 import SingleReview from "./pages/SingleReview";
+import PathNotFound from "./pages/PathNotFound";
+import CategoryNotFound from "./pages/CategoryNotFound";
+import ReviewNotFound from "./pages/ReviewNotFound";
+import ServerError from "./pages/ServerError";
 
 const App = () => {
   const [categories, setCategories] = useState([]);
   const [reviews, setReviews] = useState([]);
   const [singleReview, setSingleReview] = useState({});
   const { setIsLoaded } = useContext(IsLoadedContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setIsLoaded(false);
-    getCategories().then((data) => {
-      setCategories(data);
-      setIsLoaded(true);
-    });
+    getCategories()
+      .then((data) => {
+        setCategories(data);
+        setIsLoaded(true);
+      })
+      .catch((error) => {
+        navigate("/server-error");
+      });
   }, []);
 
   useEffect(() => {
     setIsLoaded(false);
-    getReviews().then((data) => {
-      setReviews(data);
-      setIsLoaded(true);
-    });
+    getReviews()
+      .then((data) => {
+        setReviews(data);
+        setIsLoaded(true);
+      })
+      .catch((error) => {
+        navigate("/server-error");
+      });
   }, [singleReview]);
 
   return (
@@ -58,6 +71,10 @@ const App = () => {
           }
         />
         <Route path="/login" element={<Login />} />
+        <Route path="/category-not-found" element={<CategoryNotFound />} />
+        <Route path="/review-not-found" element={<ReviewNotFound />} />
+        <Route path="*" element={<PathNotFound />} />
+        <Route path="/server-error" element={<ServerError />} />
       </Routes>
     </div>
   );

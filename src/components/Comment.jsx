@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState } from "react";
 import { UserContext } from "../contexts/UserContext";
 import { deleteComment } from "../utils/api";
 import { FaTrash } from "react-icons/fa";
@@ -13,7 +13,7 @@ const Comment = ({
   onDelete,
 }) => {
   const { loggedInUser } = useContext(UserContext);
-  const [isDeleted, setIsDeleted] = useState(false);
+  const [setIsDeleted] = useState(false);
   const [viewTrashIcon, setViewTrashIcon] = useState(true);
   const [hasFailed, setHasFailed] = useState(false);
 

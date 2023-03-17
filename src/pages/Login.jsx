@@ -1,4 +1,5 @@
 import { useContext, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { UserContext } from "../contexts/UserContext";
 import { getUsers } from "./../utils/api";
 
@@ -7,15 +8,20 @@ const Login = () => {
   const [allUsers, setAllUser] = useState([]);
   const [username, setUsername] = useState("");
   const [notFound, setNotFound] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setUsername(e.target.value);
   };
 
   useEffect(() => {
-    getUsers().then((usersData) => {
-      setAllUser(usersData);
-    });
+    getUsers()
+      .then((usersData) => {
+        setAllUser(usersData);
+      })
+      .catch((error) => {
+        navigate("/server-error");
+      });
   }, []);
 
   const handleSubmit = (e) => {
