@@ -22,6 +22,7 @@ const SingleReview = ({ singleReview, setSingleReview }) => {
   const [voteCount, setVoteCount] = useState(0);
   const [err, setErr] = useState(null);
   const [comments, setComments] = useState([]);
+  const [commentCount, setCommentCount] = useState(null);
   const [showComments, setShowComments] = useState(false);
   const [showAddComment, setShowAddComment] = useState(false);
   const [newComment, setNewComment] = useState({});
@@ -45,6 +46,7 @@ const SingleReview = ({ singleReview, setSingleReview }) => {
   useEffect(() => {
     getReviewComments(params.id).then((commentsData) => {
       setComments(commentsData);
+      setCommentCount(commentsData.length);
       const usersData = commentsData.map((comment) => {
         return getUser(comment.author);
       });
@@ -62,6 +64,13 @@ const SingleReview = ({ singleReview, setSingleReview }) => {
     setShowComments((prevState) => !prevState);
   };
 
+  const handleCommentDelete = (commentId) => {
+    setComments((prevComments) =>
+      prevComments.filter((comment) => comment.comment_id !== commentId)
+    );
+    setCommentCount((prevCount) => prevCount - 1);
+  };
+
   const commentCards = comments.map((comment) => {
     return (
       <Comment
@@ -70,6 +79,8 @@ const SingleReview = ({ singleReview, setSingleReview }) => {
         author={comment.author}
         body={comment.body}
         createdAt={comment.created_at}
+        commentId={comment.comment_id}
+        onDelete={handleCommentDelete}
       />
     );
   });
@@ -118,7 +129,7 @@ const SingleReview = ({ singleReview, setSingleReview }) => {
 
   return (
     <div className="review-page">
-      {isLoaded ? (
+    {isLoaded ? (
         <>
           <About
             img={singleReview.review_img_url}
