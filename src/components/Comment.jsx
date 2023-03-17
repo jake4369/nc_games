@@ -15,17 +15,23 @@ const Comment = ({
   const { loggedInUser } = useContext(UserContext);
   const [isDeleted, setIsDeleted] = useState(false);
   const [viewTrashIcon, setViewTrashIcon] = useState(true);
+  const [hasFailed, setHasFailed] = useState(false);
 
   const handleDelete = () => {
     setIsDeleted(false);
     setViewTrashIcon(false);
+    setHasFailed(false);
 
-    deleteComment(commentId).then((response) => {
-      console.log(response);
-      setIsDeleted(true);
-      setViewTrashIcon(true);
-      onDelete(commentId);
-    });
+    deleteComment(commentId)
+      .then((response) => {
+        console.log(response);
+        setIsDeleted(true);
+        setViewTrashIcon(true);
+        onDelete(commentId);
+      })
+      .catch((error) => {
+        setHasFailed(true);
+      });
   };
 
   return (
@@ -37,8 +43,10 @@ const Comment = ({
           <>
             {viewTrashIcon ? (
               <FaTrash className="trash-icon" onClick={handleDelete} />
-            ) : (
+            ) : !hasFailed ? (
               <BouncingDotsLoader />
+            ) : (
+              <p className="delete-error-message">Failed to delete comment</p>
             )}
           </>
         )}
