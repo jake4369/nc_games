@@ -127,7 +127,6 @@ const SingleReview = ({ singleReview, setSingleReview }) => {
 
   const handleReply = () => {
     setShowAddComment(!showAddComment);
-    // addCommentRef?.current?.focus();
   };
 
   useEffect(() => {
