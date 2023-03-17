@@ -58,11 +58,11 @@ export const updateVotes = (reviewId, incVotes) => {
     });
 };
 
-
 export const deleteComment = (commentId) => {
   return reviewsApi.delete(`/comments/${commentId}`).then((response) => {
     return response;
   });
+};
 
 export const addComment = (reviewId, username, body) => {
   return reviewsApi
