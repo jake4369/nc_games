@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { addComment } from "../utils/api";
 import { forwardRef } from "react";
+import BouncingDotsLoader from "./shared/BouncingDotsLoader";
 
 const Comment = forwardRef(
   ({ reviewId, setComments, handleNewComment }, ref) => {
@@ -57,9 +58,16 @@ const Comment = forwardRef(
           onChange={handleChange}
           ref={ref}
         ></textarea>
-        <button className="send-comment-btn" disabled={isSubmitting}>
-          {isSubmitting ? "..." : "SEND"}
-        </button>
+        {isSubmitting ? (
+          <div className="send-comment-loader">
+            <BouncingDotsLoader />
+          </div>
+        ) : (
+          <button className="send-comment-btn" disabled={isSubmitting}>
+            SEND
+          </button>
+        )}
+
         {errorMessage && <p className="error-message">{errorMessage}</p>}
       </form>
     );
