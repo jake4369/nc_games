@@ -44,7 +44,10 @@ const App = () => {
           path="category/:categoryName"
           element={<Category reviews={reviews} categories={categories} />}
         />
-        <Route path="/reviews" element={<Reviews reviews={reviews} />} />
+        <Route
+          path="/reviews"
+          element={<Reviews reviews={reviews} setReviews={setReviews} />}
+        />
         <Route
           path="/reviews/:id"
           element={
