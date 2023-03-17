@@ -12,6 +12,9 @@ import Login from "./pages/Login";
 import Category from "./pages/Category";
 import Reviews from "./pages/Reviews";
 import SingleReview from "./pages/SingleReview";
+import PathNotFound from "./pages/PathNotFound";
+import CategoryNotFound from "./pages/CategoryNotFound";
+import ReviewNotFound from "./pages/ReviewNotFound";
 
 const App = () => {
   const [categories, setCategories] = useState([]);
@@ -58,6 +61,9 @@ const App = () => {
           }
         />
         <Route path="/login" element={<Login />} />
+        <Route path="/category-not-found" element={<CategoryNotFound />} />
+        <Route path="/review-not-found" element={<ReviewNotFound />} />
+        <Route path="*" element={<PathNotFound />} />
       </Routes>
     </div>
   );

@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { IsLoadedContext } from "../contexts/IsLoadedContext";
 import { images } from "./../assets/categories/index";
 
@@ -14,6 +14,7 @@ const Category = ({ reviews, categories }) => {
   const [categoryImg, setCategoryImg] = useState("");
   const [categoryTitle, setCategoryTitle] = useState("");
   const { isLoaded } = useContext(IsLoadedContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const filteredReviews = reviews.filter(
@@ -21,6 +22,10 @@ const Category = ({ reviews, categories }) => {
     );
 
     const category = categories.find((obj) => obj.slug === params.categoryName);
+
+    if (!category) {
+      navigate("/category-not-found");
+    }
 
     setCategoryReviews(filteredReviews);
     setCategoryTitle(params.categoryName.split("-").join(" "));
