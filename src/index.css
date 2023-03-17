@@ -103,6 +103,37 @@ h3 {
   }
 }
 
+/* BOUNCING DOTS LOADER */
+.bouncing-loader {
+  display: flex;
+  justify-content: center;
+}
+
+.bouncing-loader > div {
+  width: 0.5rem;
+  height: 0.5rem;
+  margin: 0.1875rem;
+  border-radius: 50%;
+  background-color: #5357b6;
+  opacity: 1;
+  animation: bouncing-loader 0.6s infinite alternate;
+}
+
+@keyframes bouncing-loader {
+  to {
+    opacity: 0.1;
+    transform: translateY(-16px);
+  }
+}
+
+.bouncing-loader > div:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.bouncing-loader > div:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
 /* ====================
  HOME PAGE
  ==================== */
@@ -471,6 +502,13 @@ section.latest-reviews {
   line-height: 1.5625rem;
   font-weight: bold;
   letter-spacing: 0.0625rem;
+  margin-right: auto;
+}
+
+.trash-icon {
+  font-size: 1.125rem;
+  color: #ff0000;
+  cursor: pointer;
 }
 
 .comment-card__body {
