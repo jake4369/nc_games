@@ -56,6 +56,12 @@ const SingleReview = ({ singleReview, setSingleReview }) => {
     setShowComments((prevState) => !prevState);
   };
 
+  const handleCommentDelete = (commentId) => {
+    setComments((prevComments) =>
+      prevComments.filter((comment) => comment.comment_id !== commentId)
+    );
+  };
+
   const commentCards = comments.map((comment) => {
     return (
       <Comment
@@ -64,6 +70,8 @@ const SingleReview = ({ singleReview, setSingleReview }) => {
         author={comment.author}
         body={comment.body}
         createdAt={comment.created_at}
+        commentId={comment.comment_id}
+        onDelete={handleCommentDelete}
       />
     );
   });
