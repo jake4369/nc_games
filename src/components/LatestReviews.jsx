@@ -1,15 +1,20 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { getLatestReviews } from "../utils/api";
 
 const LatestReviews = () => {
   const [latestReviews, setLatestReviews] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    getLatestReviews().then((data) => {
-      const mostRecentReviews = data.slice(0, 3);
-      setLatestReviews(mostRecentReviews);
-    });
+    getLatestReviews()
+      .then((data) => {
+        const mostRecentReviews = data.slice(0, 3);
+        setLatestReviews(mostRecentReviews);
+      })
+      .catch((error) => {
+        navigate("/server-error");
+      });
   }, []);
 
   const latestReviewCards = latestReviews.map((review, index) => {

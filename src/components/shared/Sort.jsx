@@ -1,14 +1,20 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { getReviews } from "../../utils/api";
 
 const Sort = ({ setReviews }) => {
   const [sortOption, setSortOption] = useState("created_at");
   const [sortOrder, setSortOrder] = useState("desc");
+  const navigate = useNavigate();
 
   useEffect(() => {
-    getReviews(sortOption, sortOrder).then((data) => {
-      setReviews(data);
-    });
+    getReviews(sortOption, sortOrder)
+      .then((data) => {
+        setReviews(data);
+      })
+      .catch((error) => {
+        navigate("/server-error");
+      });
   }, [sortOption, sortOrder]);
 
   const handleSortOptionChange = (e) => {
