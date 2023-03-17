@@ -18,6 +18,7 @@ const SingleReview = ({ singleReview, setSingleReview }) => {
   const [voteCount, setVoteCount] = useState(0);
   const [err, setErr] = useState(null);
   const [comments, setComments] = useState([]);
+  const [commentCount, setCommentCount] = useState(null);
   const [showComments, setShowComments] = useState(false);
   const params = useParams();
   const { isLoaded, setIsLoaded } = useContext(IsLoadedContext);
@@ -39,6 +40,7 @@ const SingleReview = ({ singleReview, setSingleReview }) => {
   useEffect(() => {
     getReviewComments(params.id).then((commentsData) => {
       setComments(commentsData);
+      setCommentCount(commentsData.length);
       const usersData = commentsData.map((comment) => {
         return getUser(comment.author);
       });
@@ -60,6 +62,7 @@ const SingleReview = ({ singleReview, setSingleReview }) => {
     setComments((prevComments) =>
       prevComments.filter((comment) => comment.comment_id !== commentId)
     );
+    setCommentCount((prevCount) => prevCount - 1);
   };
 
   const commentCards = comments.map((comment) => {
@@ -123,7 +126,7 @@ const SingleReview = ({ singleReview, setSingleReview }) => {
               {singleReview.review_body}
             </p>
             <div className="single-review-card__comments-container">
-              <p>Comments: {singleReview.comment_count}</p>
+              <p>Comments: {commentCount}</p>
 
               {singleReview.comment_count > 0 && (
                 <button
